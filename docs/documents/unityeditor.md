@@ -12,13 +12,7 @@ Here, let's learn how UnityCindy3D can cooperate with the Unity Editor through p
 
 ## Getting Started
 
-1. Download the code of UnityCindy3D, or just use git clone:
-
-
-    ```
-    git clone https://github.com/tmytokai/UnityCindy3D.git
-    ```
-
+1. Download the code of Viewer from the [Downloads page](https://github.com/tmytokai/UnityCindy3D/tree/master/Downloads/).
 1. Launch the Unity Editor.
 1. Open "UnityCindy3D/Viewer" folder.
 1. Double click "Viewer" icon in the Assets panel to open the game scene.
