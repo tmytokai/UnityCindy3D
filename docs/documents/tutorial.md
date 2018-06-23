@@ -13,7 +13,7 @@ The compatible list of the functions is [Here](./compatiblelist.pdf). The funtio
 
 ## Installation
 
-1. Download a binary package depending on your platform from the downloads page.
+1. Download a binary package depending on your platform from the [Downloads page](https://github.com/tmytokai/UnityCindy3D/tree/master/Downloads/).
 1. After extracting the package, move UnityCindy3D folder into the Plugins folder of the Cinderella.
 
 ## Getting Started
