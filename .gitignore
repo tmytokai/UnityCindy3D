@@ -27,7 +27,7 @@ Packages/
 *.exe
 [Ll]inux/
 [Ww]indows/
-*.zip
+[Mm]acOS/
 *~
 tmp/
 Standard Assets/
