@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="UnityCindy3D" default="compile">
+
+    <target name="init" description="setup">
+        <property name="cindy2jar" location="./lib/cindy2.jar"/>
+        <property name="plugin" location="UnityCindy3D.jar"/>
+        <property name="classes" location="./classes"/>
+    </target>
+
+    <target name="compile" depends="init" description="compile plugin">
+        <mkdir dir="${classes}"/>
+        <javac encoding="utf-8" debug="on" optimize="on" srcdir="src" destdir="${classes}" target="1.6" source="1.6" includeantruntime="false" >
+            <classpath>
+                <pathelement location="${cindy2jar}"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="build" depends="compile" description="create plugin">
+        <delete file="${plugin}"/>
+        <jar basedir="${classes}" destfile="${plugin}" includes="**/*.class">
+        </jar>
+        <jar basedir="config"     destfile="${plugin}" update="true">
+            <file file="META-INF/services/de.cinderella.api.cs.CindyScriptPlugin"/>
+        </jar>
+    </target>
+
+    <target name="clean" depends="init" description="clean project">
+        <delete file="${plugin}"/>
+        <delete dir="${classes}"/>
+    </target>
+
+</project>
