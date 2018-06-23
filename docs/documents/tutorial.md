@@ -65,7 +65,7 @@ The compatible list of the functions is [Here](./compatiblelist.pdf). The funtio
     // draws a segment
     draw3d([0,0,0],[2,0,1]);
 
-    //end3d()  
+    end3d()
     ```
 
 1. Push the start button on the right-upper side of the editor.
@@ -91,7 +91,7 @@ The compatible list of the functions is [Here](./compatiblelist.pdf). The funtio
     fillpoly3d([A,B,D]);   
     fillpoly3d([B,C,D]);   
 
-    //end3d()  
+    end3d()
     ```
 
 1. Push the start button on the right-upper side of the editor.
@@ -112,7 +112,7 @@ The compatible list of the functions is [Here](./compatiblelist.pdf). The funtio
     // draws a sphere
     drawsphere3d([0,0,0],2);
 
-    end3d()  
+    end3d()
     ```
 
 1. Push the start button on the right-upper side of the editor.
