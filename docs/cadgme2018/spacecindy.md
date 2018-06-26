@@ -12,7 +12,7 @@ SpaceCindy is not a plugin package but a script file. So the installation is not
 
 ## Getting Started
 
-1. Launch the Cinderella.
+1. Download "SpaceCindy2KETpic.cdy"
 1. Open "SpaceCindy2KETpic.cdy"
 1. Open the Script Editor.
 
