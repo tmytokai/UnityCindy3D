@@ -4,16 +4,16 @@ layout: default
 ---
 [Back](./)
 
-# SpaceCindy2KETpic
+# SpaceCindy
 
-[SpaceCindy2KETpic](https://sites.google.com/site/ketcindy/english/cindy3d2ketpic) is a tool to draw 3D graphics directly on the main window of Cinderella.
+[SpaceCindy](https://sites.google.com/site/cinderellade3d/spacecindy) is a tool to draw 3D graphics directly on the main window of Cinderella.
 
 SpaceCindy is not a plugin package but a script file. So the installation is not needed.
 
 ## Getting Started
 
-1. Download "SpaceCindy2KETpic.cdy"
-1. Open "SpaceCindy2KETpic.cdy"
+1. Download "SpaceCindy.cdy"
+1. Open "SpaceCindy.cdy"
 1. Open the Script Editor.
 
 ## How to draw a point
