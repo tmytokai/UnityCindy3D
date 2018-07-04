@@ -13,18 +13,9 @@ KeTCindy3D can generate 3D graphics for TeX documents. It also can generate obje
 ## Getting Started
 
 1. Install the KeTCindy
-1. Launch the Cinderella.
-1. Open the Script Editor.
-1. Open the Initialization slot, and copy the following code.
-
-    ```
-    use("KetCindyPlugin"); 
-    Dircdy=loaddirectory; 
-    setdirectory(plugindirectory); 
-    import("dirhead.txt"); 
-    Ketinit(); 
-    Ketinit3d();
-    ```
+1. Copy "s05spacefigure/s0501basic.cdy" and rename it.
+1. Open the file and remove points A,B and Az,Bz.
+1. Close and save the file.
 
 ## How to draw a point
 
@@ -39,6 +30,7 @@ KeTCindy3D can generate 3D graphics for TeX documents. It also can generate obje
 
     // draws a point  
     Putpoint3d(["A",[2,0,1]],"fix"); 
+    Drawpoint("A");
 
     Windispg(); 
     ```
@@ -107,11 +99,10 @@ KeTCindy3D can generate 3D graphics for TeX documents. It also can generate obje
     Xyzax3data("","x=[-5,5]","y=[-5,5]","z=[-5,5]"); 
 
     // draws a sphere
-    r=2; 
     fd=["p", 
-      "x=r*sin(u)*cos(v)", 
-      "y=r*sin(u)*sin(v)", 
-      "z=r*cos(u)", 
+      "x=2*sin(u)*cos(v)", 
+      "y=2*sin(u)*sin(v)", 
+      "z=2*cos(u)", 
       "u=[0,pi]","v=[0,2*pi]"];  
     Sf3data("1",fd);  
   
