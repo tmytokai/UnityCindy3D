@@ -104,26 +104,26 @@ public class Server{
 
 				var size = 0;
 
-				while (size < 3) {
-					var tmpsize = stream.Read (buffer, size, 3 - size);
+				while (size < 1 + 4 ) {
+					var tmpsize = stream.Read (buffer, size, (1 + 4) - size);
 					if (tmpsize == 0) {
 						break;
 					}
 					size += tmpsize;
 				}
-				if (size < 3) {
+				if (size < 1 + 4) {
 					break;
 				}
 
-				var chunksize = BitConverter.ToUInt16 (buffer, 1);
-				while (size < 3 + chunksize) {
-					var tmpsize = stream.Read (buffer, size, 3 + chunksize - size);
+				var chunksize = BitConverter.ToInt32 (buffer, 1);
+				while (size < (1 + 4) + chunksize) {
+					var tmpsize = stream.Read (buffer, size, (1 + 4) + chunksize - size);
 					if (tmpsize == 0) {
 						break;
 					}
 					size += tmpsize;
 				}
-				if (size < 3 + chunksize) {
+				if (size < (1 + 4) + chunksize) {
 					break;
 				}
 

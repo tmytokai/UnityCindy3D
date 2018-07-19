@@ -172,8 +172,8 @@ public class Decoder{
 
 			else if ((COMMAND)buffer [0] == COMMAND.SelectObject) {
 
-				var lng = BitConverter.ToUInt16 ( buffer, 1);
-				var objname = System.Text.Encoding.ASCII.GetString (buffer, 3, lng); 
+				var lng = BitConverter.ToInt32 ( buffer, 1);
+				var objname = System.Text.Encoding.ASCII.GetString (buffer, (1+4), lng); 
 
 				if (dic_gobj.ContainsKey (objname)) {
 					idx_gobj = dic_gobj [objname];
@@ -289,9 +289,9 @@ public class Decoder{
 				} 
 				else if (modifiers == MODIFIERS.Colors) {
 					
-					var colorssize = BitConverter.ToUInt16 ( command_buffer [idx], command_head[idx]);
-					command_head [idx] += 2;
-					chunksize -= 2;
+					var colorssize = BitConverter.ToInt32 ( command_buffer [idx], command_head[idx]);
+					command_head [idx] += 4;
+					chunksize -= 4;
 
 					frontColors.Clear();
 					readColors (idx, colorssize);
@@ -335,15 +335,15 @@ public class Decoder{
 							throw new Exception( "gobj[" + idx + "] is null" );
 						}
 
-						if (! gobj [idx].rendering && command_size[idx] - command_head[idx] >= (1 + 2)) {
+						if (! gobj [idx].rendering && command_size[idx] - command_head[idx] >= (1 + 4)) {
 
 							var command = (COMMAND)command_buffer [idx] [command_head[idx]];
-							chunksize = BitConverter.ToUInt16 (command_buffer [idx], command_head[idx] + 1);
+							chunksize = BitConverter.ToInt32 (command_buffer [idx], command_head[idx] + 1);
 
-							if (command_size[idx] - command_head[idx] >= (1 + 2) + chunksize) {
+							if (command_size[idx] - command_head[idx] >= (1 + 4) + chunksize) {
 
 								wait = false;
-								command_head[idx] += (1 + 2);
+								command_head[idx] += (1 + 4);
 
 								switch (command) {
 
@@ -420,14 +420,14 @@ public class Decoder{
 
 									if (gobj [idx].initialized) {
 
-										var pointssize = BitConverter.ToUInt16 ( command_buffer [idx], command_head[idx]);
-										command_head [idx] += 2;
-										chunksize -= 2;
+										var pointssize = BitConverter.ToInt32 ( command_buffer [idx], command_head[idx]);
+										command_head [idx] += 4;
+										chunksize -= 4;
 							
 										if( pointssize >= MAX_POINTS ){
 											command_head[idx] = 0;
 											command_size[idx] = 0;
-											throw new Exception( "too many points size = " + pointssize );
+											throw new Exception( "too many points size = " + pointssize + " > " + MAX_POINTS );
 										}
 
 										readPoints[coordinate] (idx, pointssize);
@@ -459,14 +459,14 @@ public class Decoder{
 
 									if( gobj[idx].initialized ){
 
-										var pointssize = BitConverter.ToUInt16 ( command_buffer [idx], command_head[idx]);
-										command_head [idx] += 2;
-										chunksize -= 2;
+										var pointssize = BitConverter.ToInt32 ( command_buffer [idx], command_head[idx]);
+										command_head [idx] += 4;
+										chunksize -= 4;
 
 										if( pointssize >= MAX_POINTS ){
 											command_head[idx] = 0;
 											command_size[idx] = 0;
-											throw new Exception( "too many points size = " + pointssize );
+											throw new Exception( "too many points size = " + pointssize + " > " + MAX_POINTS );
 										}
 
 										readPoints[coordinate] (idx, pointssize);
@@ -513,22 +513,22 @@ public class Decoder{
 
 									if( gobj[idx].initialized ){
 
-										var rows = BitConverter.ToUInt16 ( command_buffer [idx], command_head[idx]);
-										command_head [idx] += 2;
-										chunksize -= 2;
+										var rows = BitConverter.ToInt32 ( command_buffer [idx], command_head[idx]);
+										command_head [idx] += 4;
+										chunksize -= 4;
 
-										var cols = BitConverter.ToUInt16 ( command_buffer [idx], command_head[idx]);
-										command_head [idx] += 2;
-										chunksize -= 2;
+										var cols = BitConverter.ToInt32 ( command_buffer [idx], command_head[idx]);
+										command_head [idx] += 4;
+										chunksize -= 4;
 
-										var pointssize = BitConverter.ToUInt16 ( command_buffer [idx], command_head[idx]);
-										command_head [idx] += 2;
-										chunksize -= 2;
+										var pointssize = BitConverter.ToInt32 ( command_buffer [idx], command_head[idx]);
+										command_head [idx] += 4;
+										chunksize -= 4;
 
 										if( pointssize >= MAX_POINTS ){
 											command_head[idx] = 0;
 											command_size[idx] = 0;
-											throw new Exception( "too many points size = " + pointssize );
+											throw new Exception( "too many points size = " + pointssize + " > " + MAX_POINTS );
 										}
 
 										readPoints[coordinate] (idx, pointssize);

@@ -155,7 +155,7 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
         if( socket == null ) connect();
         if( output == null ) return;
 
-        short chunksize = 1;
+        int chunksize = 1;
         int lng = 0;
 
         try{
@@ -164,8 +164,8 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             lng++;
 
             // chunksize
-            System.arraycopy( ShortToByte( chunksize ), 0, buffer, lng, 2 );
-            lng += 2;
+            System.arraycopy( IntToByte( chunksize ), 0, buffer, lng, 4 );
+            lng += 4;
 
             // coordinate system
             if( systemname.equals("yup_lefthand") ){ 
@@ -196,7 +196,7 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
 
         selectObject( objname );
 
-        short chunksize = 0;
+        int chunksize = 0;
         int lng = 0;
 
         try{
@@ -205,8 +205,8 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             lng++;
 
             // chunksize
-            System.arraycopy( ShortToByte( chunksize ), 0, buffer, lng, 2 );
-            lng += 2;
+            System.arraycopy( IntToByte( chunksize ), 0, buffer, lng, 4 );
+            lng += 4;
 
             output.write( buffer, 0, lng );
 
@@ -234,7 +234,7 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
 
         if( socket == null || output == null ) return;
 
-        short chunksize = 0;
+        int chunksize = 0;
         int lng = 0;
 
         try{
@@ -243,8 +243,8 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             lng++;
 
             // chunksize
-            System.arraycopy( ShortToByte( chunksize ), 0, buffer, lng, 2 );
-            lng += 2;
+            System.arraycopy( IntToByte( chunksize ), 0, buffer, lng, 4 );
+            lng += 4;
 
             output.write( buffer, 0, lng );
 
@@ -269,7 +269,7 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             throw new IllegalArgumentException( msg );
         }
 
-        short chunksize = 4 * 3; // size of float * RGB
+        int chunksize = 4 * 3; // size of float * RGB
         int lng = 0;
 
         try{
@@ -278,8 +278,8 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             lng++;
 
             // chunksize
-            System.arraycopy( ShortToByte( chunksize ), 0, buffer, lng, 2 );
-            lng += 2;
+            System.arraycopy( IntToByte( chunksize ), 0, buffer, lng, 4 );
+            lng += 4;
 
             // RGB
             for( int i = 0; i < 3; ++i ){
@@ -310,7 +310,7 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             throw new IllegalArgumentException( msg );
         }
 
-        short chunksize = 4; // size of float
+        int chunksize = 4; // size of float
         int lng = 0;
 
         try{
@@ -319,8 +319,8 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             lng++;
 
             // chunksize
-            System.arraycopy( ShortToByte( chunksize ), 0, buffer, lng, 2 );
-            lng += 2;
+            System.arraycopy( IntToByte( chunksize ), 0, buffer, lng, 4 );
+            lng += 4;
 
             // size
             System.arraycopy( FloatToByte( size ), 0, buffer, lng, 4 );
@@ -343,10 +343,10 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
 
         if( socket == null || output == null ) return;
 
-        short chunksize = 4 * 3; // size of float * 3 axis
+        int chunksize = 4 * 3; // size of float * 3 axis
         int lng = 0;
 
-        short modifierssize = applyModifiers();
+        int modifierssize = applyModifiers();
         chunksize += modifierssize;
 
         try{
@@ -356,8 +356,8 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             lng++;
 
             // chunksize
-            System.arraycopy( ShortToByte( chunksize ), 0, buffer, lng, 2 );
-            lng += 2;
+            System.arraycopy( IntToByte( chunksize ), 0, buffer, lng, 4 );
+            lng += 4;
 
             // point
             System.arraycopy( FloatToByte( (float) point.getXR() ), 0, buffer, lng, 4 );
@@ -417,15 +417,15 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             throw new IllegalArgumentException( msg );
         }
 
-        short chunksize = 2; // points size
-        chunksize += (short)( 4 * 3 * points.size() ); // size of float * 3 axis * points.size
+        int chunksize = 4; // points size
+        chunksize += 4 * 3 * points.size(); // size of float * 3 axis * points.size
         if( colors != null ){
-            chunksize += 1 + 2; // MODIFIERS.Colors + colors size
-            chunksize += (short)( 4 * 3 * colors.size() ); // size of float * RGB * colors.size
+            chunksize += 1 + 4; // MODIFIERS.Colors + colors size
+            chunksize += 4 * 3 * colors.size(); // size of float * RGB * colors.size
         }
         int lng = 0;
 
-        short modifierssize = applyModifiers();
+        int modifierssize = applyModifiers();
         chunksize += modifierssize;
 
         try{
@@ -434,12 +434,12 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             lng++;
 
             // chunksize
-            System.arraycopy( ShortToByte( (short) chunksize ), 0, buffer, lng, 2 );
-            lng += 2;
+            System.arraycopy( IntToByte( chunksize ), 0, buffer, lng, 4 );
+            lng += 4;
 
             // points size
-            System.arraycopy( ShortToByte( (short) points.size() ), 0, buffer, lng, 2 );
-            lng += 2;
+            System.arraycopy( IntToByte( points.size() ), 0, buffer, lng, 4 );
+            lng += 4;
 
             // points
             for (int i = 0; i < points.size(); ++i) {
@@ -458,8 +458,8 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
                 lng++;
 
                 // colors size
-                System.arraycopy( ShortToByte( (short) colors.size() ), 0, buffer, lng, 2 );
-                lng += 2;
+                System.arraycopy( IntToByte( colors.size() ), 0, buffer, lng, 4 );
+                lng += 4;
 
                 for (int i = 0; i < colors.size(); ++i) {
                     System.arraycopy( FloatToByte( (float) colors.get(i).getXR() ), 0, buffer, lng, 4 );
@@ -500,11 +500,11 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             throw new IllegalArgumentException( msg );
         }
 
-        short chunksize = 2; // points size
-        chunksize += (short)( 4 * 3 * points.size() ); // size of float * 3 axis * points.size
+        int chunksize = 4; // points size
+        chunksize += 4 * 3 * points.size(); // size of float * 3 axis * points.size
         int lng = 0;
 
-        short modifierssize = applyModifiers();
+        int modifierssize = applyModifiers();
         chunksize += modifierssize;
 
         try{
@@ -513,12 +513,12 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             lng++;
 
             // chunksize
-            System.arraycopy( ShortToByte( (short) chunksize ), 0, buffer, lng, 2 );
-            lng += 2;
+            System.arraycopy( IntToByte( chunksize ), 0, buffer, lng, 4 );
+            lng += 4;
 
             // points size
-            System.arraycopy( ShortToByte( (short) points.size() ), 0, buffer, lng, 2 );
-            lng += 2;
+            System.arraycopy( IntToByte( points.size() ), 0, buffer, lng, 4 );
+            lng += 4;
 
             // points
             for (int i = 0; i < points.size(); ++i) {
@@ -559,11 +559,11 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             throw new IllegalArgumentException( msg );
         }
 
-        short chunksize = 4 * 3; // size of float * 3 axis
-        chunksize += 1 + 4; // MODIFIERS.Radius + radius
+        int chunksize = 4 * 3; // size of float * 3 axis
+        chunksize += 1 + 4; // MODIFIERS.Radius + size of float * 1 radius
         int lng = 0;
 
-        short modifierssize = applyModifiers();
+        int modifierssize = applyModifiers();
         chunksize += modifierssize;
 
         try{
@@ -573,8 +573,8 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             lng++;
 
             // chunksize
-            System.arraycopy( ShortToByte( chunksize ), 0, buffer, lng, 2 );
-            lng += 2;
+            System.arraycopy( IntToByte( chunksize ), 0, buffer, lng, 4 );
+            lng += 4;
 
             // center
             System.arraycopy( FloatToByte( (float) point.getXR() ), 0, buffer, lng, 4 );
@@ -619,11 +619,11 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             throw new IllegalArgumentException( msg );
         }
 
-        short chunksize = 2 * 3; // rows + columns + points size
-        chunksize += (short)( 4 * 3 * points.size() ); // size of float * 3 axis * points.size
+        int chunksize = 4 + 4 + 4; // rows + columns + points size
+        chunksize += 4 * 3 * points.size(); // size of float * 3 axis * points.size
         int lng = 0;
 
-        short modifierssize = applyModifiers();
+        int modifierssize = applyModifiers();
         chunksize += modifierssize;
 
         try{
@@ -632,16 +632,16 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             lng++;
 
             // chunksize
-            System.arraycopy( ShortToByte( (short) chunksize ), 0, buffer, lng, 2 );
-            lng += 2;
+            System.arraycopy( IntToByte( chunksize ), 0, buffer, lng, 4 );
+            lng += 4;
 
             // rows , columns and points size
-            System.arraycopy( ShortToByte( (short) rows ), 0, buffer, lng, 2 );
-            lng += 2;
-            System.arraycopy( ShortToByte( (short) columns ), 0, buffer, lng, 2 );
-            lng += 2;
-            System.arraycopy( ShortToByte( (short) points.size() ), 0, buffer, lng, 2 );
-            lng += 2;
+            System.arraycopy( IntToByte( rows ), 0, buffer, lng, 4 );
+            lng += 4;
+            System.arraycopy( IntToByte( columns ), 0, buffer, lng, 4 );
+            lng += 4;
+            System.arraycopy( IntToByte( points.size() ), 0, buffer, lng, 4 );
+            lng += 4;
 
             // points
             for (int i = 0; i < points.size(); ++i) {
@@ -719,7 +719,7 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
 
         targetObj = objname;
 
-        short chunksize = (short)Math.min( objname.length(), 256 ); // max 256 strings
+        int chunksize = Math.min( objname.length(), 256 ); // max 256 strings
         int lng = 0;
 
         try{
@@ -728,8 +728,8 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
             lng++;
 
             // chunksize
-            System.arraycopy( ShortToByte( chunksize ), 0, buffer, lng, 2 );
-            lng += 2;
+            System.arraycopy( IntToByte( chunksize ), 0, buffer, lng, 4 );
+            lng += 4;
 
             // objname
             System.arraycopy( objname.getBytes(), 0, buffer, lng, chunksize );
@@ -744,9 +744,9 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
         }
     }
 
-    private short applyModifiers()
+    private int applyModifiers()
     {
-        short lng = 0;
+        int lng = 0;
         Object value = null;
 
         value = modifiers.get( "size" );
@@ -798,13 +798,6 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
         }
     }
 
-    private static byte[] DoubleToByte( double val )
-    {
-        ByteBuffer buf = ByteBuffer.allocate( Double.SIZE / Byte.SIZE );
-        buf.order(ByteOrder.LITTLE_ENDIAN);
-        return buf.putDouble( val ).array();
-    }
-
     private static byte[] FloatToByte( float val )
     {
         ByteBuffer buf = ByteBuffer.allocate( Float.SIZE / Byte.SIZE );
@@ -812,10 +805,10 @@ public class UnityCindy3DPlugin extends CindyScriptPlugin {
         return buf.putFloat( val ).array();
     }
 
-    private static byte[] ShortToByte( short val )
+    private static byte[] IntToByte( int val )
     {
-        ByteBuffer buf = ByteBuffer.allocate( Short.SIZE / Byte.SIZE );
+        ByteBuffer buf = ByteBuffer.allocate( Integer.SIZE / Byte.SIZE );
         buf.order(ByteOrder.LITTLE_ENDIAN);
-        return buf.putShort( val ).array();
+        return buf.putInt( val ).array();
     }
 }
