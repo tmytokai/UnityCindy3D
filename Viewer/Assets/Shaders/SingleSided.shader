@@ -16,43 +16,34 @@ limitations under the License.
 
 Shader "GeometricObject/SingleSided"
 {
+	// from Standard.shader in builtin_shaders-2018.*.zip
 	Properties
 	{
 		_FColor ("Front Color", Color) = (1,1,1,1)
-		_Shininess ("Shininess", Range(0.01, 1) ) = 0.5
+
+		_Metallic ( "Metallic", Range(0.0, 1.0)) = 0.0
+        _Glossiness ( "Smoothness", Range(0.0, 1.0)) = 0.5
+
+		[ToggleOff] _SpecularHighlights( "Specular Highlights", Float) = 1.0
+		[ToggleOff] _GlossyReflections( "Reflections", Float) = 0.0
 	}
 
     SubShader {
 
         Tags { "Queue"="Transparent" "RenderType"="Transparent" }
-
         LOD 100
 
-        // render to depth buffer
-        Pass {
+        // renders the depth buffer
+        Pass {       
           ZWrite On
           ColorMask 0
         }
 
+        // renders the front
+   		Cull Back
         CGPROGRAM
-
-        #pragma surface surf BlinnPhong alpha
-
-        struct Input {
-            float4 color : COLOR;
-        };
-
-        fixed4 _FColor;
-        half _Shininess;
-
-        void surf (Input IN, inout SurfaceOutput o) {
-            fixed4 c = _FColor;
-            o.Albedo = c.rgb;
-            o.Alpha = c.a;
-			o.Specular = _Shininess;
-			o.Gloss = 1;
-        }
-
+		#pragma surface surf_front Standard alpha fullforwardshadows
+		#include "Common.cginc"
         ENDCG
 	}
 

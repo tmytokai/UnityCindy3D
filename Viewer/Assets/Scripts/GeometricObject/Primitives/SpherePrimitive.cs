@@ -29,7 +29,7 @@ public class SpherePrimitive : PrimitiveBase{
 		pen.topology = Pen.Topology.CloseColumns;
 		pen.radius = 1f;
 		pen.stacks = 9;
-		pen.slices = 18;
+		pen.slices = pen.stacks * 2;
 		pen.shaderType = Pen.ShaderType.SingleSided;
 	}
 

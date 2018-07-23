@@ -16,45 +16,32 @@ limitations under the License.
 
 Shader "GeometricObject/VertexColors"
 {
+	// from Standard.shader in builtin_shaders-2018.*.zip
     Properties 
     {
-		_Shininess( "Shininess", Range(0.01, 1) ) = 0.5
+    	_Metallic ( "Metallic", Range(0.0, 1.0)) = 0.0
+        _Glossiness ( "Smoothness", Range(0.0, 1.0)) = 0.5
+
+		[ToggleOff] _SpecularHighlights( "Specular Highlights", Float) = 1.0
+		[ToggleOff] _GlossyReflections( "Reflections", Float) = 0.0
     }
 
     SubShader {
 
-    	Tags { "Queue"="Transparent" "RenderType"="Transparent"}
-
+    	Tags { "Queue"="Transparent" "RenderType"="Transparent" }
 		LOD 100
 
-		// render to depth buffer
+		// renders the depth buffer
 		Pass {
           ZWrite On
           ColorMask 0
         }
-		
+
+        // renders the front
+        Cull Back
 		CGPROGRAM
-
-		#pragma surface surf BlinnPhong alpha vertex:vert
-
-		struct Input {
-			float4 vertColor;
-		};
-
-		half _Shininess;
-
-		void vert(inout appdata_full v, out Input o){
-			UNITY_INITIALIZE_OUTPUT(Input, o);
-			o.vertColor = v.color;
-		}
-
-		void surf (Input IN, inout SurfaceOutput o) {
-			o.Albedo = IN.vertColor.rgb;
-			o.Alpha = IN.vertColor.a;
-			o.Specular = _Shininess;
-			o.Gloss = 1;
-		}
-
+		#pragma surface surf_vert Standard alpha fullforwardshadows vertex:vert_vert
+		#include "Common.cginc"
 		ENDCG
 	}
 

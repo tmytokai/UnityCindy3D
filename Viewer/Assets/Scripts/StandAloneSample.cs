@@ -22,8 +22,9 @@ public class StandAloneSample : MonoBehaviour {
 
 	public GameObject GeometricObjectPrefab;
 
-	private GameObject test01 = null;
-	private GameObject test02 = null;
+	private GameObject sphere = null;
+	private GameObject torus = null;
+	private GameObject enneper = null;
 
 	void Start () {		
 	}
@@ -32,27 +33,55 @@ public class StandAloneSample : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.F1)) {
 
-			if (test01 == null) {
-				test01 = Instantiate (GeometricObjectPrefab, new Vector3( 0f,0f,0f), Quaternion.identity );
-				test01.name = "TorusKnot";
-				TorusKnot (test01.GetComponent<GeometricObject> ());
+			if (sphere == null) {
+				sphere = Instantiate (GeometricObjectPrefab, new Vector3( 0f,0f,0f), Quaternion.identity );
+				sphere.name = "Sphere";
+				Sphere (sphere.GetComponent<GeometricObject> ());
 			} else {
-				Destroy (test01);
-				test01 = null;
+				Destroy (sphere);
+				sphere = null;
 			}
 		}
 
 		if (Input.GetKeyDown (KeyCode.F2)) {
 
-			if (test02 == null) {
-				test02 = Instantiate (GeometricObjectPrefab, new Vector3( 0f,0f,0f), Quaternion.identity );
-				test02.name = "Enneper";
-				Enneper (test02.GetComponent<GeometricObject> ());
+			if (torus == null) {
+				torus = Instantiate (GeometricObjectPrefab, new Vector3( 0f,0f,1.5f), Quaternion.identity );
+				torus.name = "TorusKnot";
+				TorusKnot (torus.GetComponent<GeometricObject> ());
 			} else {
-				Destroy (test02);
-				test02 = null;
+				Destroy (torus);
+				torus = null;
 			}
 		}
+
+		if (Input.GetKeyDown (KeyCode.F3)) {
+
+			if (enneper == null) {
+				enneper = Instantiate (GeometricObjectPrefab, new Vector3( 0f,0f,-1.5f), Quaternion.identity );
+				enneper.name = "Enneper";
+				Enneper (enneper.GetComponent<GeometricObject> ());
+			} else {
+				Destroy (enneper);
+				enneper = null;
+			}
+		}
+	}
+
+	void Sphere ( GeometricObject obj ){
+
+		var fcl = new Color (0.5f, 0.5f, 0.5f, 1.0f);
+		var stacks = 20;
+		var slices = 2 * stacks;
+		var radius = 1.0f;
+
+		obj.Begin ();
+		obj.SetSphereStacks ( stacks );
+		obj.SetSphereSlices ( slices );
+		obj.SetSphereRadius ( radius );
+		obj.SetSphereFrontColor ( fcl );
+		obj.AddSphere ( Vector3.zero );
+		obj.End ();
 	}
 
 	// see https://en.wikipedia.org/wiki/Torus_knot
@@ -66,17 +95,20 @@ public class StandAloneSample : MonoBehaviour {
 			o.x = r * Mathf.Sin (p * phi);
 			o.y = r * Mathf.Cos (p * phi);
 			o.z = -Mathf.Sin (q * phi);
-			return o*0.5f;
+			return o;
 		};
 
-		var n = 500;
+		var alpha = 1.0f;
+		var n = 1200;
 		var frontColors = new List<Color32> ();
 		var points = new List<Vector3> ();
 
 		frontColors.Clear ();
 		for (var i = 0; i < n; ++i) {
 			var	hue = (float)i / n;
-			frontColors.Add( Color.HSVToRGB( hue,1f,1f ) );
+			var cl = Color.HSVToRGB (hue, 1f, 1f);
+			cl.a = alpha;
+			frontColors.Add( cl );
 		}
 
 		points.Clear();
@@ -86,7 +118,7 @@ public class StandAloneSample : MonoBehaviour {
 		}
 
 		obj.Begin ();
-		obj.SetLineRadius (0.15f);
+		obj.SetLineRadius (0.3f);
 		obj.SetLineTopology (Pen.Topology.Close);
 		obj.AddLine( points, frontColors );
 		obj.End ();
@@ -105,6 +137,10 @@ public class StandAloneSample : MonoBehaviour {
 			return o*0.5f;
 		};
 
+		var alpha = 1.0f;
+		var pcl = new Color (1.0f, 1.0f, 1.0f, alpha);
+		var fcl = new Color (0.5f, 0.5f, 1.0f, alpha);
+		var bcl = new Color (0.5f, 0.5f, 0.0f, alpha);
 		var rows = 51;
 		var cols = 51;
 		var idxs = new int[rows, cols];
@@ -119,14 +155,14 @@ public class StandAloneSample : MonoBehaviour {
 		}
 
 		obj.Begin ();
-		obj.SetPointFrontColor( new Color (1.0f, 1.0f, 1.0f, 1.0f) );
+		obj.SetPointFrontColor( pcl );
 		for (var r = 0; r < rows; r++) {			
 			for (var c = 0; c < cols; c++) {
 				obj.AddPoint (points [idxs[r,c]]);
 			}
 		}
-		obj.SetMeshFrontColor (new Color (0.5f, 0.5f, 1.0f, 1.0f) );
-		obj.SetMeshBackColor ( new Color (0.5f, 0.5f, 0.0f, 1.0f) );
+		obj.SetMeshFrontColor ( fcl );
+		obj.SetMeshBackColor ( bcl );
 		obj.AddMesh( rows, cols, points, idxs );
 		obj.End ();
 	}
