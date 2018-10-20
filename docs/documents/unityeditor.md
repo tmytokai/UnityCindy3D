@@ -2,8 +2,11 @@
 title: How to Cooperate with Unity Editor
 layout: default
 ---
-[Home](../)
+## this page has moved to the following address.
 
+### [CindyJSPlugins](https://tmytokai.github.io/CindyJSPlugins/)
+
+---
 # **How to cooperate with Unity Editor**
 
 In cooperation with the Unity Editor, UnityCindy3D can make use of Unity's powerful functions like physics engine and collision system.
