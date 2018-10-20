@@ -2,8 +2,11 @@
 title: Tutorial
 layout: default
 ---
-[Home](../)
+## this page has moved to the following address.
 
+### [CindyJSPlugins](https://tmytokai.github.io/CindyJSPlugins/)
+
+---
 # **Tutorial**
 
 UnityCindy3D runs on [CindyScript](https://doc.cinderella.de/tiki-index.php?page=CindyScript), which is the scripting language of the [Cinderella](https://www.cinderella.de/).
