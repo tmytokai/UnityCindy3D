@@ -5,7 +5,7 @@ layout: default
 
 ## this page has moved to the following address.
 
-### [CindyJSPlugins](https://tmytokai.github.io/CindyJSPlugins/)
+### [https://tmytokai.github.io/CindyJSPlugins/](https://tmytokai.github.io/CindyJSPlugins/)
 
 ---
 UnityCindy3D is a plugin of [Cinderella](https://www.cinderella.de/) and can draw 3D geometric patterns easily.
