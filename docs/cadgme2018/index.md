@@ -2,8 +2,11 @@
 title: CADGME2018
 layout: default
 ---
-[Home](../)
+## this page has moved to the following address.
 
+### [CindyJSPlugins](https://tmytokai.github.io/CindyJSPlugins/)
+
+---
 # CADGME2018
 
 This page was prepared temporarily for the [CADGME2018](https://www.uc.pt/en/congressos/cadgme2018) - Conference on Digital Tools in Mathematics Education﻿.
