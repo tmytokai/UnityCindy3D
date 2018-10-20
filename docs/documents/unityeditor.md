@@ -4,7 +4,7 @@ layout: default
 ---
 ## this page has moved to the following address.
 
-### [CindyJSPlugins](https://tmytokai.github.io/CindyJSPlugins/)
+### [https://tmytokai.github.io/CindyJSPlugins/](https://tmytokai.github.io/CindyJSPlugins/)
 
 ---
 # **How to cooperate with Unity Editor**
